@@ -55,6 +55,27 @@ public class Userdataimpl implements Userdata{
         return users;
     }
 
+    @Override
+    public void create(User user) throws SQLException {
+        PreparedStatement stat = conc.prepareStatement("insert into employee (id,firstname,address,salary) values(?,?,?,?)");
+        stat.setInt(1, user.getId());
+        stat.setString(2,user.getName());
+        stat.setString(3,user.getAddress());
+        stat.setInt(4,user.getSalary());
+        stat.executeUpdate();
+
+    }
+
+    @Override
+    public void update(User user, String id) throws SQLException {
+        PreparedStatement stat = conc.prepareStatement(" UPDATE employee SET firstname = ?, address=?, salary=? WHERE id = ?;");
+        stat.setString(1,user.getName());
+        stat.setString(2,user.getAddress());
+        stat.setInt(3,user.getSalary());
+        stat.setInt(4, Integer.parseInt(id));
+        stat.executeUpdate();
+    }
+
 
     //DELETE WITH ID
     @Override

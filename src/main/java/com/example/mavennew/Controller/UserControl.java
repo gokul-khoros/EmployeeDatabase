@@ -1,6 +1,7 @@
 package com.example.mavennew.Controller;
 
 
+import bean.User;
 import database.Userdata;
 import database.Userdataimpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,9 +33,16 @@ public class UserControl {
 
     //Create new or POST
     @RequestMapping(method = RequestMethod.POST, value = "/post")
-    public void create(){
-        
+    public void create(@RequestBody User user) throws SQLException {
+        userdata.create(user);
     }
+
+    //update
+    @RequestMapping(method = RequestMethod.PUT, value = "/put/{id}")
+    public void update(@RequestBody User user, @PathVariable String id) throws SQLException {
+        userdata.update(user, id);
+    }
+
 
     //deleteone
     @GetMapping(value="/delete/{id}")
